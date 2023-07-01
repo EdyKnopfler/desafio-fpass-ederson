@@ -44,6 +44,15 @@ curl -iX POST localhost:3000/auth/signin \
 curl -i localhost:3000/heroes
 ```
 
+## Clean Architecture
+
+Referência de configuração do projeto em NestJs em:
+https://github.com/EdyKnopfler/desafio-fpass-ederson/commit/81814ad1fd13361e9ca8a14653f790bb6cde8971
+
+Configurando corretamente as [referências](https://www.typescriptlang.org/docs/handbook/project-references.html) e o `entryFile`, ao importar o projeto `core` o `rootDir` "sobe" para a pasta principal  do repositório.
+
+O módulo `core` deve ter a configuração `composite: true` em seu `tsconfig.json`.
+
 ## Referências
 
 * https://wallis.dev/blog/typescript-project-references
