@@ -50,9 +50,7 @@ export class AuthenticationGuard implements CanActivate {
 
   async parseToken(token: string): Promise<any> {
     try {
-      const payload = await this.jwtService.verifyAsync(
-        token, { secret: process.env.JWT_SECRET });
-
+      const payload = await this.jwtService.verifyAsync(token);
       return payload;
     } catch (e) {
       console.error(e);

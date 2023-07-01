@@ -7,6 +7,7 @@ import { AuthenticationGuard } from "./authentication.guard";
   imports: [
     JwtModule.register({
       global: true,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     })
   ],
@@ -15,6 +16,6 @@ import { AuthenticationGuard } from "./authentication.guard";
       provide: APP_GUARD,
       useClass: AuthenticationGuard
     }
-  ]
+  ],
 })
 export class AuthenticationModule {}
