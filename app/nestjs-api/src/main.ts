@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import '@js-joda/timezone';
 
 import { sayHello } from '../../../core/use-case/example';
 
