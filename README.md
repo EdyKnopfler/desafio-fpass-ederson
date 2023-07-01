@@ -3,7 +3,7 @@
 _Éderson Cássio Lacerda Ferreira_  
 edersoncassio1983@gmail.com
 
-# Autenticação
+## Autenticação
 
 Será necessária para marcar heróis como favoritos.
 
