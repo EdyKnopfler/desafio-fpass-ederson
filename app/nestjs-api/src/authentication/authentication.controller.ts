@@ -1,8 +1,7 @@
-import { Body, Controller, Post, UnauthorizedException } from "@nestjs/common";
+import { Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException } from "@nestjs/common";
 import { Public } from "./public.decorator";
 import { JwtService } from "@nestjs/jwt";
 import { LoginDTO } from "./authentication.logindto";
-import { ZonedDateTime } from "@js-joda/core";
 
 @Controller('auth')
 export class AuthenticationController {
@@ -11,6 +10,7 @@ export class AuthenticationController {
   ) {}
 
   @Post('signin')
+  @HttpCode(HttpStatus.OK)
   @Public()
   async signIn(@Body() userData: LoginDTO) {
     if (userData.username == 'user' && userData.password == 'password') {
