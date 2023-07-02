@@ -31,7 +31,6 @@ export class HeroesController {
     try {
       await this.favoriteService.save(favorited);
     } catch (error) {
-      console.log('ERRO', error)
       if (error instanceof HeroNotFound) {
         throw new NotFoundException(error.message);
       }
