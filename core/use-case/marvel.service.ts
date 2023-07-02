@@ -22,7 +22,28 @@ export class MarvelService {
     const response = await axios.get(
       `${this.baseUrl}/characters`, config);
     
-      return response.data.data.results.map(this.transformPayload);
+    return response.data.data.results.map(this.transformPayload);
+  }
+
+  async findById(marvelId: number): Promise<Character | null> {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}/characters/${marvelId}`,
+        this.defaultConfig()
+      );
+
+      if (response.data.code == 200) {
+        return this.transformPayload(response.data.data.results[0])
+      }
+
+      return null;
+    } catch (error) {
+      if (error.response.status == 404) {
+        return null;
+      }
+
+      throw error;
+    }
   }
 
   private makeTsAndHash(): any {
