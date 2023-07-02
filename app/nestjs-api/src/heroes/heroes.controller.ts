@@ -1,4 +1,14 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Post, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Post,
+  Query,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 
 import { Public } from '../authentication/public.decorator';
 
@@ -28,6 +38,7 @@ export class HeroesController {
   }
 
   @Post('favorites')
+  @UsePipes(ValidationPipe)
   async markAsFavorite(@Body() favorited: FavoriteHero) {
     try {
       await this.favoriteService.save(favorited);
