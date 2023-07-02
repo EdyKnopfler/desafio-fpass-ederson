@@ -9,8 +9,7 @@ export class MarvelService {
 
   async listHeroes() {
     const response = await axios.get(
-      `${this.baseUrl}/characters`, 
-      { params: { ...this.makeTsAndHash() } });
+      `${this.baseUrl}/characters`, this.defaultConfig());
     return response.data.data.results;
   }
 
@@ -19,5 +18,12 @@ export class MarvelService {
     const keys =  ts + this.privateKey + this.publicKey;
     const hash = crypto.createHash('md5').update(keys).digest('hex');
     return { ts, hash, apikey: this.publicKey };
+  }
+
+  private defaultConfig() {
+    return {
+      params: this.makeTsAndHash(),
+      headers: { 'Accept-encoding': 'gzip' },
+    };
   }
 }
