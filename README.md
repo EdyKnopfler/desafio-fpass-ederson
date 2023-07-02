@@ -27,8 +27,7 @@ npm run start[:dev]
 
 ## Autenticação
 
-Será necessária para marcar heróis como favoritos. Acesse o endpoint de login informando
-as credenciais `user` e `password`:
+Será necessária para marcar/desmarcar heróis como favoritos. Acesse o endpoint de login informando as credenciais `user` e `password`:
 
 ```bash
 curl -iX POST localhost:3000/auth/signin \
@@ -49,6 +48,39 @@ Parâmetros querystring:
 
 ```bash
 curl -i localhost:3000/heroes?search=<pesquisa>[&page=<pagina>]
+```
+
+### Favoritar herói
+
+Campos da requisição (obrigatórios):
+
+* `marvelId`: ID do herói (numérico)
+* `reason`: motivo para favoritar (string)
+
+```bash
+curl -iX POST localhost:3000/heroes/favorites \
+   -H 'Content-Type: application/json' \
+   -H 'Authorization: Bearer <token>' \
+   -d '{"marvelId": <id>, "reason": "<motivo>"}'
+```
+
+### Remover herói dos favoritos
+
+Parâmetro da URL:
+
+* `marvelId`: ID do herói (numérico)
+
+```bash
+curl -iX DELETE localhost:3000/heroes/favorites/<marvelId> \
+   -H 'Authorization: Bearer <token>'
+```
+
+### Listar favoritos
+
+Não requer autenticação.
+
+```bash
+curl localhost:3000/heroes/favorites
 ```
 
 ## Clean Architecture
