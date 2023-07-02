@@ -19,6 +19,10 @@ export class FavoriteHeroesService {
     this.repository.save(favorited);
   }
 
+  remove(marvelId: number) {
+    this.repository.delete(marvelId);
+  }
+
   async all(): Promise<FavoriteHeroJoinedCharacter[]> {
     return await Promise.all(this.repository.all().map(
       async (favorited: FavoriteHero) => {

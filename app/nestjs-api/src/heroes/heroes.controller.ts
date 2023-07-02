@@ -2,8 +2,12 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   NotFoundException,
+  Param,
   Post,
   Query,
   UsePipes,
@@ -48,6 +52,12 @@ export class HeroesController {
       }
       throw error;
     }
+  }
+
+  @Delete('favorites/:marvelId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  removeAsFavorite(@Param('marvelId') marvelId: number) {
+    this.favoriteService.remove(marvelId);
   }
 
   @Get('favorites')
