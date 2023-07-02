@@ -40,8 +40,15 @@ curl -iX POST localhost:3000/auth/signin \
 
 ### Listagem de heróis
 
+Não requer autenticação.
+
+Parâmetros querystring:
+
+* `search`: texto a pesquisar (obrigatório)
+* `page`: página de resultado iniciando em 1 (default 1, 30 por página)
+
 ```bash
-curl -i localhost:3000/heroes
+curl -i localhost:3000/heroes?search=<pesquisa>[&page=<pagina>]
 ```
 
 ## Clean Architecture

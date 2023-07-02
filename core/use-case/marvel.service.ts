@@ -3,26 +3,36 @@ import axios from 'axios';
 
 import { Character } from '../domain/entity/marvel/character';
 
+const PAGE_SIZE = 30;
+
 export class MarvelService {
 
   private baseUrl = 'https://gateway.marvel.com/v1/public';
   private privateKey = process.env.MARVEL_PRIVATE_KEY;
   private publicKey = process.env.MARVEL_PUBLIC_KEY;
 
-  async listHeroes(): Promise<Character[]> {
+  async listHeroes(search: string, page: number): Promise<Character[]> {
+    page = (page || 1) - 1;
+    
+    const config = this.defaultConfig();
+    config.params.nameStartsWith = search;
+    config.params.limit = PAGE_SIZE;
+    config.params.offset = page * PAGE_SIZE;
+
     const response = await axios.get(
-      `${this.baseUrl}/characters`, this.defaultConfig());
-    return response.data.data.results.map(this.transformPayload);
+      `${this.baseUrl}/characters`, config);
+    
+      return response.data.data.results.map(this.transformPayload);
   }
 
-  private makeTsAndHash() {
+  private makeTsAndHash(): any {
     const ts = crypto.randomBytes(20).toString('hex');
     const keys =  ts + this.privateKey + this.publicKey;
     const hash = crypto.createHash('md5').update(keys).digest('hex');
     return { ts, hash, apikey: this.publicKey };
   }
 
-  private defaultConfig() {
+  private defaultConfig(): any {
     return {
       params: this.makeTsAndHash(),
       headers: { 'Accept-encoding': 'gzip' },

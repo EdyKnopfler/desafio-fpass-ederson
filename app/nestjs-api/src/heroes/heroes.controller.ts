@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { MarvelService } from '../../../../core/use-case/marvel.service';
 import { Public } from '../authentication/public.decorator';
 
@@ -9,8 +9,14 @@ export class HeroesController {
 
   @Get()
   @Public()
-  list() {
-    return this.service.listHeroes();
+  list(
+    @Query('search') search: string,
+    @Query('page') page: number,
+  ) {
+    if (!search) {
+      throw new BadRequestException('Missing a `search` query param');
+    }
+    return this.service.listHeroes(search, page);
   }
 
 }
