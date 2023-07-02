@@ -7,6 +7,7 @@ import { FavoriteHeroesService } from '../../../../core/use-case/favorite-heroes
 import { Character } from '../../../../core/domain/entity/marvel/character';
 import { FavoriteHero } from '../../../../core/domain/entity/favorite-heroes/favorite-hero';
 import { HeroNotFound } from '../../../../core/use-case/hero-not-found.exception';
+import { FavoriteHeroJoinedCharacter } from '../../../../core/domain/entity/favorite-heroes/favorite-hero-joined-character';
 
 @Controller('heroes')
 export class HeroesController {
@@ -40,7 +41,7 @@ export class HeroesController {
 
   @Get('favorites')
   @Public()
-  listFavorites() {
+  listFavorites(): Promise<FavoriteHeroJoinedCharacter[]> {
     return this.favoriteService.all();
   }
 

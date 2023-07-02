@@ -1,4 +1,6 @@
 import { FavoriteHero } from "../domain/entity/favorite-heroes/favorite-hero";
+import { FavoriteHeroJoinedCharacter } from "../domain/entity/favorite-heroes/favorite-hero-joined-character";
+import { Character } from "../domain/entity/marvel/character";
 import { FavoriteHeroesRepository } from "../domain/repository/favorite-heroes.repository";
 import { HeroNotFound } from "./hero-not-found.exception";
 import { MarvelService } from "./marvel.service";
@@ -17,7 +19,15 @@ export class FavoriteHeroesService {
     this.repository.save(favorited);
   }
 
-  all(): FavoriteHero[] {
-    return this.repository.all();
+  async all(): Promise<FavoriteHeroJoinedCharacter[]> {
+    return await Promise.all(this.repository.all().map(
+      async (favorited: FavoriteHero) => {
+        const character = await this.marvelService.findById(favorited.marvelId);
+        return {
+          ...favorited,
+          character: <Character>character
+        };
+      }
+    ));
   }
 }
