@@ -1,8 +1,5 @@
 # Desafio Fpass
 
-_Éderson Cássio Lacerda Ferreira_  
-edersoncassio1983@gmail.com
-
 ## Executando a aplicação
 
 1. Configure a variável de ambiente `JWT_SECRET` com o segredo para assinatura dos tokens JWT.
